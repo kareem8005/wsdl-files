@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.tibco.com/DivOperation/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="DivOperation" targetNamespace="http://www.tibco.com/DivOperation/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.tibco.com/DivOperation/" targetNamespace="http://www.tibco.com/DivOperation/">
+      <xsd:complexType name="DivRequest">
+        <xsd:sequence>
+          <xsd:element name="NUM1" type="xsd:int"/>
+          <xsd:element name="NUM2" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DivResponse">
+        <xsd:sequence>
+          <xsd:element name="Result" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="DivOperationRequest">
+    <wsdl:part name="DivOperationRequest" type="tns:DivRequest"/>
+  </wsdl:message>
+  <wsdl:message name="DivOperationResponse">
+    <wsdl:part name="DivOperationResponse" type="tns:DivResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="DivOperation">
+    <wsdl:operation name="DivOperation">
+      <wsdl:input message="tns:DivOperationRequest"/>
+      <wsdl:output message="tns:DivOperationResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SOAPServiceBinding3" type="tns:DivOperation">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="DivOperation">
+      <soap:operation soapAction="DivOperation" style="rpc"/>
+      <wsdl:input>
+        <soap:body parts="DivOperationRequest" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="DivOperationResponse" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DivOperation">
+    <wsdl:port binding="tns:SOAPServiceBinding3" name="DivOperationSOAP">
+      <soap:address location="http://localhost:8005/SOAPServiceBinding3/divOperation/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
